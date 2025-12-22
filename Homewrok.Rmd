@@ -1,0 +1,57 @@
+---
+title: "Homewrok"
+author: "Nina Jankovič"
+date: "2025-12-22"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# MAP531: Homework
+
+## Part 1: Estimating parameters of a Poisson distribution to model the number of goals scored in football
+
+### Q10
+\begin{align*}
+\hat\theta_2 &= \frac{1}{n} \sum_{i=1}^{n} {(X_i-\overline{X}_n)}^2\\
+&= \frac{1}{n} \sum_{i=1}^{n} (X_i-\theta+\theta-\overline{X}_n)^2\\
+&= \frac{1}{n}\sum_{i=1}^{n} \left( (X_i-\theta)^2 + 2(X_i-\theta)(\theta-\overline{X}_n)+(\theta-\overline{X}_n)^2 \right)\\
+&= \frac{1}{n}\sum_{i=1}^{n} (X_i-\theta)^2+\frac{1}{n}\sum_{i=1}^{n} \left( 2X_i\theta - 2X_i\overline{X}_n + 2\theta\overline{X}_n - 2\theta^2+ \theta^2-2\theta\overline{X}_n+\overline{X}_n^2\right)\\
+&= \frac{1}{n}\sum_{i=1}^{n} (X_i-\theta)^2+\frac{1}{n}\sum_{i=1}^{n} \left( 2X_i\theta - 2X_i\overline{X}_n - \theta^2+\overline{X}_n^2\right)\\
+&=\frac{1}{n}\sum_{i=1}^{n} (X_i-\theta)^2+2\theta\overline{X}_n - 2\overline{X}_n^2-\theta^2+\overline{X}_n^2\\
+&= \frac{1}{n}\sum_{i=1}^{n} (X_i-\theta)^2 - (\theta^2-2\theta\overline{X}_n - \overline{X}_n^2)\\
+&= \frac{1}{n}\sum_{i=1}^{n} (X_i-\theta)^2 - (\theta - \overline{X}_n)
+\end{align*}
+
+### Q11
+
+\begin{align*}
+E(\theta-\overline{X}_n)^2 &= \left(E(\theta)-E(\overline{X}_n)\right)^2\\
+&= \left(\theta-E(X_1)\right)^2\\
+&= (\theta-\theta)^2\\
+&=0
+\end{align*}
+
+\begin{align*}
+    E[(\theta-\overline{X}_n)^2] &= E(\theta^2-\theta\overline{X}_n+\overline{X}_n^2)\\
+    &= \theta^2-\theta\theta+\theta^2+\theta\\
+    &= \theta^2+\theta
+\end{align*}
+
+\begin{align*}
+    E(\hat\theta_2) &= E\left(\frac{1}{n}\sum_{i=1}^{n} (X_i-\theta)^2 - (\theta - \overline{X}_n)\right)\\
+    &=\frac{1}{n}\sum_{i=1}^{n} E\left((X_i-\theta)^2\right) - E((\theta-\overline{X}_n)^2)\\
+    &=E(\overline{X}_n^2)-2\theta E(\overline{X}_n) +\theta^2 - \theta^2-\theta\\
+    &= \theta^2+\theta-2\theta^2+\theta^2 - \theta^2-\theta\\
+    &= -\theta^2\\
+    &\neq \theta
+\end{align*}
+
+Since the expectation of the estimator does not equal $\theta$, $\hat\theta_2$ is a
+biased estimator. It bias is
+
+\[ b_{\theta}\hat\theta_2=-\theta^2-\theta\]
+
+
