@@ -1,6 +1,6 @@
 ---
-title: "Homewrok"
-author: "Nina Jankovič"
+title: "Homework"
+author: "Nina Jankovič, Wei-Chieh Chou, Lucca Vettori"
 date: "2025-12-22"
 output: pdf_document
 ---
@@ -12,6 +12,63 @@ knitr::opts_chunk$set(echo = TRUE)
 # MAP531: Homework
 
 ## Part 1: Estimating parameters of a Poisson distribution to model the number of goals scored in football
+
+### Q1
+The Poisson distribution is a discrete distribution as it takes values in the set of non-negative integers.
+Three examples of phenomenons that could be modeled by such a distribution are:
+- the number of cars passing though a certain traffic light per hour;
+- the number of points scored in a quarter of a basketball game;
+- the number of checkout in a e-commerce website per minute.
+
+### Q2
+$X$ ~ Poisson($\theta$)
+$\mathbb{E}[X]$ = $\sum_{k=0}^{\infty} kp(\theta, k)$ = $\sum_{k=0}^{\infty} ke^{-\theta}\frac{\theta^k}{k!}$
+
+As when $k=0$, the result is 0. We have:
+$\sum_{k=1}^{\infty} ke^{-\theta}\frac{\theta^k}{k(k-1)!}$ = $\sum_{k=1}^{\infty} e^{-\theta}\frac{\theta^k}{(k-1)!}$ = $e^{-\theta}\sum_{k=1}^{\infty}\frac{\theta^k}{(k-1)!}$ = $\theta e^{-\theta}\sum_{k=1}^{\infty}\frac{\theta^{k-1}}{(k-1)!}$
+
+Changing index such that $j = k-1$:
+$\mathbb{E}[X]$ = $\theta e^{-\theta}\sum_{j=0}^{\infty}\frac{\theta^j}{j!}$ = $\theta e^{-\theta}e^{\theta}$ = $\theta$
+
+Now, for the Variance $Var(X)$:
+$Var(X)$ = $\mathbb{E}[X^2] - (\mathbb{E}[X])^2$ = $\mathbb{E}[X^2] - \theta^2$
+
+Then, for computing $\mathbb{E}[X^2]$, we have that $X^2 = X(X-1) + X$ and thus $\mathbb{E}[X^2] = \mathbb{E}[X(X-1)] + \mathbb{E}[X]$ where $\mathbb{E}[X] = \theta$
+$\mathbb{E}[X(X-1)] = \sum_{k=0}^{\infty} k(k-1)e^{-\theta}\frac{\theta^k}{k!}$ = 
+$e^{-\theta}\sum_{k=0}^{\infty} k(k-1)\frac{\theta^k}{k!}$ =
+$e^{-\theta}\sum_{k=2}^{\infty} k(k-1)\frac{\theta^k}{k!}$ =
+$e^{-\theta}\sum_{k=2}^{\infty} k(k-1)\frac{\theta^k}{k(k-1)(k-2)!}$ =
+$e^{-\theta}\sum_{k=2}^{\infty} \frac{\theta^k}{(k-2)!}$ =
+$e^{-\theta}\sum_{k=2}^{\infty} \frac{\theta^{k-2}\theta^{2}}{(k-2)!}$ = 
+$\theta^{2}e^{-\theta}\sum_{k=2}^{\infty} \frac{\theta^{k-2}}{(k-2)!}$
+Changing index such that j=k-2:
+$\theta^{2}e^{-\theta}\sum_{j=0}^{\infty} \frac{\theta^{j}}{j!}$ = 
+$\theta^{2}e^{-\theta}e^{\theta}$ = $\theta^2$
+So, $\mathbb{E}[X^2] = \theta^2 + \theta$ and $Var(X) = \theta^2 + \theta - \theta^2 = \theta$
+### Q3
+• What are our observations? What distribution do they follow?
+Our observations are n independent random variables $X_1, X_2, ..., X_n$ that follow the Poisson distribution with the same parameter $\theta$ such that $X_i \sim \text{Poisson}(\theta)$
+
+• Write the corresponding statistical model.
+$\mathcal{M}=\left\{\mathbb{P}_\theta^{(n)} : \theta \in \mathbb{R}_+^*\right\},$ where for each $\theta$, it has $\mathbb{P}_\theta= e^{-\theta}\frac{\theta^k}{k!}$
+
+• What parameter are we trying to estimate?
+The parameter we are trying to estimate is $\theta$
+
+###Q4
+As $X1,...,Xn$ are $i.i.d$, we have that $l_{{X_1},...,{X_n}}(\theta) = \prod_{i=1}^{n} p(\theta,k) = \prod_{i=1}^{n} e^{-\theta}\frac{\theta^{X_i}}{X_i} = e^{-n\theta}\theta^{\sum_{i=1}^n}\prod_{i=1}^{n}\frac{1}{{X_i}!}$
+
+To compute the MLE of $\hat{\theta_{ML}}$, equals the first derivative of the log likelihood to 0. Then, first computing the log likelihood:
+$\mathcal{L}_{X_1,...,X_n}(\theta) = log(e^{-n\theta}\theta^{\sum_{i=1}^n}\prod_{i=1}^{n}\frac{1}{{X_i}!}) = -n\theta + (\sum_{i=1}^n X_i) log \theta - \sum_{i=1}^nlog(X_i!)$
+
+Then, deriving in $\theta$: $\frac{d}{d\theta}\,\mathcal{L}_{X_1,...,X_n} = -n + \frac{\sum_{i=1}^n X_i}{\theta}$
+
+Finally, $\mathcal{L'}_{X_1,...,X_n} = 0$
+$-n + \frac{\sum_{i=1}^n X_i}{\theta} = 0$
+$-n\theta + \sum_{i=1}^n X_i = 0$
+$\theta = \frac{\sum_{i=1}^n X_i}{n}$
+
+$\hat{\theta_{ML}} = \bar X_n$
 
 ### Q10
 \begin{align*}
@@ -53,5 +110,3 @@ Since the expectation of the estimator does not equal $\theta$, $\hat\theta_2$ i
 biased estimator. It bias is
 
 \[ b_{\theta}\hat\theta_2=-\theta^2-\theta\]
-
-
