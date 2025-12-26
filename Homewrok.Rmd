@@ -80,7 +80,7 @@ From Question 5, we know that the maximum likelihood estimator
 \mathcal N(0,\theta)
 \]
 
-Therefore,
+Therefore, by standardization,
 \[
 \frac{\hat\theta_{ML}-\theta}{\sqrt{\theta/n}}
 \xrightarrow{d}
