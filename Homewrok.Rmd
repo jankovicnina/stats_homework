@@ -55,7 +55,7 @@ $\mathcal{M}=\left\{\mathbb{P}_\theta^{(n)} : \theta \in \mathbb{R}_+^*\right\},
 • What parameter are we trying to estimate?
 The parameter we are trying to estimate is $\theta$
 
-###Q4
+### Q4
 As $X1,...,Xn$ are $i.i.d$, we have that $l_{{X_1},...,{X_n}}(\theta) = \prod_{i=1}^{n} p(\theta,k) = \prod_{i=1}^{n} e^{-\theta}\frac{\theta^{X_i}}{X_i} = e^{-n\theta}\theta^{\sum_{i=1}^n}\prod_{i=1}^{n}\frac{1}{{X_i}!}$
 
 To compute the MLE of $\hat{\theta_{ML}}$, equals the first derivative of the log likelihood to 0. Then, first computing the log likelihood:
@@ -69,6 +69,140 @@ $-n\theta + \sum_{i=1}^n X_i = 0$
 $\theta = \frac{\sum_{i=1}^n X_i}{n}$
 
 $\hat{\theta_{ML}} = \bar X_n$
+
+### Q7
+
+From Question 5, we know that the maximum likelihood estimator
+\(\hat\theta_{ML} = \bar X_n\) satisfies
+\[
+\sqrt{n}(\hat\theta_{ML}-\theta)
+\xrightarrow{d}
+\mathcal N(0,\theta)
+\]
+
+Therefore,
+\[
+\frac{\hat\theta_{ML}-\theta}{\sqrt{\theta/n}}
+\xrightarrow{d}
+\mathcal N(0,1)
+\]
+
+For large \(n\),
+\[
+\mathbb P\left(
+- z_{1-\alpha/2}
+\le
+\frac{\hat\theta_{ML}-\theta}{\sqrt{\theta/n}}
+\le
+z_{1-\alpha/2}
+\right)
+\approx
+1-\alpha.
+\]
+
+\(z_{1-\alpha/2}\) is the \(1-\alpha/2\) quantile of the standard normal distribution. 
+
+
+We then obtain the following CI for \(\theta\)
+\[
+\theta \in
+\left[
+\hat\theta_{ML}
+- z_{1-\alpha/2}\sqrt{\frac{\theta}{n}},
+\;
+\hat\theta_{ML}
++ z_{1-\alpha/2}\sqrt{\frac{\theta}{n}}
+\right].
+\]
+
+Since \(\theta\) is unknown, we replace it by 
+\(\hat\theta_{ML}\).  
+
+Therefore, an asymptotic confidence interval of level \(1-\alpha\) for \(\theta\) is:
+\[{
+\left[
+\hat\theta_{ML}
+- z_{1-\alpha/2}\sqrt{\frac{\hat\theta_{ML}}{n}},
+\;
+\hat\theta_{ML}
++ z_{1-\alpha/2}\sqrt{\frac{\hat\theta_{ML}}{n}}
+\right]}
+\]
+
+### Q8
+
+For a Poisson distribution with parameter \(\theta\), we have
+\[
+\mathbb E[X]=\theta,
+\qquad
+\mathrm{Var}(X)=\theta.
+\]
+
+The method of moments equates empirical moments with their theoretical parameters, assuming empirical moments will eventually get close to the theoretical parameters
+
+For the first moment, we define the estimator
+\[
+\hat\theta_1 = \bar X_n.
+\]
+
+For the second moment, we define the estimator
+\[
+\hat\theta_2
+=
+\frac{1}{n}\sum_{i=1}^n (X_i-\bar X_n)^2.
+\]
+
+The estimator \(\hat\theta_1\) is unbiased since
+\[
+\mathbb E[\hat\theta_1]=\theta.
+\]
+Moreover, \(\hat\theta_1\) is the same as the maximum likelihood estimator and is consistent.
+
+### Q9
+
+From Question 4, we know that the maximum likelihood estimator is
+\[
+\hat\theta_{ML} = \bar X_n.
+\]
+
+Bias:
+\[
+\mathbb E[\hat\theta_{ML}]
+=
+\mathbb E[\bar X_n]
+=
+\frac{1}{n}\sum_{i=1}^n \mathbb E[X_i]
+=
+\theta,
+\]
+and therefore
+\[
+\mathrm{Bias}(\hat\theta_{ML}) = 0.
+\]
+
+Variance:
+\[
+\mathrm{Var}(\hat\theta_{ML})
+=
+\mathrm{Var}(\bar X_n)
+=
+\frac{1}{n^2}\sum_{i=1}^n \mathrm{Var}(X_i)
+=
+\frac{\theta}{n}.
+\]
+
+Quadratic risk
+\[
+R(\hat\theta_{ML},\theta)
+=
+\mathbb E[(\hat\theta_{ML}-\theta)^2]
+=
+\mathrm{Var}(\hat\theta_{ML})
++
+\mathrm{Bias}(\hat\theta_{ML})^2
+=
+\frac{\theta}{n}.
+\]
 
 ### Q10
 \begin{align*}
